@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    
+    <package name="default" extends="struts-default,jasperreports-default">
+        
+        <action name="enviarCorreo" class="com.utez.edu.correo.ControladorCorreo" method="enviarCorreo">
+            <result name="success">/index.jsp</result>
+            <result name="error">/olvideContra.jsp</result>
+        </action>
+        
+        <action name="cambiarContrasena" class="com.utez.edu.correo.ControladorCorreo" method="cambiarContrasena">
+            <result name="success">/CambiarContrasena.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="cambiarContrasenaPass" class="com.utez.edu.correo.ControladorCorreo" method="cambiarContrasenaPass">
+            <result name="success">/Login.jsp</result>
+            <result name="error">/CambiarContrasena.jsp</result>
+        </action>
+        
+        <action name="registroUsuarioPersona" class="com.utez.edu.controller.usuario.UsuarioAction" method="registroUsuarioPersona">
+            <result name="success">/Registrarme.jsp</result>
+        </action>
+            
+        <action name="registrarUsuarioPersona" class="com.utez.edu.controller.usuario.UsuarioAction" method="registrarUsuarioPersona">
+            <result name="success">/Login.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action> 
+    </package>
+    
+    <package name="paqueteSesion" extends="struts-default,jasperreports-default">
+        <action name="iniciarSesion" class="com.utez.edu.controller.login.ActionLogin" method="iniciarSesion">
+            <result name="admin" type="redirectAction">admin</result>
+            <result name="usuario" type="redirectAction">usuario</result>
+            <result name="NoLogeado">/Login.jsp</result>
+        </action>
+        
+        <action name="cerrarSesion" class="com.utez.edu.controller.login.ActionLogin" method="cerrarSesion">
+            <result name="success">/Inicio.jsp</result>
+        </action>
+        
+        <action name="vistaLogin">
+            <result>/Login.jsp</result>
+        </action>
+    </package>
+    
+    <package name="usuario" extends="struts-default">
+        <action name="usuario">
+            <result>/confirmacion.jsp</result>
+        </action>
+    </package>
+    
+    
+    <package name="actions-privados" extends="struts-default,packInterceptor">
+        
+        <action name="admin">
+            <result>/Administrador/vistaAdministrador.jsp</result>
+        </action>
+        
+        <!--Actions de Audiencias-->
+        <action name="consultarDemandas" class="com.utez.edu.controller.demanda.DemandaAction" method="consultarDemandas">
+            <result name="success">/Administrador/Vistas/Demandas/Demandas.jsp</result>
+        </action>
+        
+        <!--Actions de Demandas-->
+        <action name="consultarAudiencias" class="com.utez.edu.controller.audiencia.AudienciaAction" method="consultarAudiencias">
+            <result name="success">/Administrador/Vistas/Audiencias/Audiencias.jsp</result>
+        </action>
+        
+        <!--Actions de PersonaDemandas-->
+        <action name="consultarPersonaDemanda" class="com.utez.edu.controller.personaDemanda.PersonaDemandaAction" method="consultarPersonaDemanda">
+            <result name="success">/Administrador/Vistas/PersonaDemandas/PersonaDemandas.jsp</result>
+        </action>
+        
+        
+   
+        <!--Actions de Personas-->
+        <action name="registrarPersona" class="com.utez.edu.controller.persona.PersonaAction" method="registrarPersona">
+            <result name="success" type="redirectAction">consultarPersona</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="consultarPersona" class="com.utez.edu.controller.persona.PersonaAction" method="consultarPersona">
+            <result name="success">/Administrador/Vistas/Personas/Personas.jsp</result>
+        </action>
+        
+        <action name="eliminarPersona" class="com.utez.edu.controller.persona.PersonaAction" method="eliminarPersona">
+            <result name="success" type="redirectAction">consultarPersona</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action> 
+        
+        <action name="consultarPersonaId" class="com.utez.edu.controller.persona.PersonaAction" method="consultarPersonaId">
+            <result name="success">/Administrador/Vistas/Personas/ModificarPersona.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+                     
+        <action name="modificarPersona" class="com.utez.edu.controller.persona.PersonaAction" method="modificarPersona">
+            <result name="success" type="redirectAction">consultarPersona</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="nuevaPersona" class="com.utez.edu.controller.persona.PersonaAction" method="nuevaPersona">
+            <result name="success">/Administrador/Vistas/Personas/RegistrarPersona.jsp</result>
+        </action>
+        
+        
+        
+        <!--Actions de USUARIOS -->
+        <action name="registrarUsuario" class="com.utez.edu.controller.usuario.UsuarioAction" method="registrarUsuario">
+            <result name="success" type="redirectAction">consultarUsuarios</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="consultarUsuarios" class="com.utez.edu.controller.usuario.UsuarioAction" method="consultarUsuarios">
+            <result name="success">/Administrador/Vistas/Usuarios/Usuarios.jsp</result>
+        </action>
+        
+        <action name="eliminarUsuario" class="com.utez.edu.controller.usuario.UsuarioAction" method="eliminarUsuario">
+            <result name="success" type="redirectAction">consultarUsuarios</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action> 
+        
+        <action name="consultarUsuarioId" class="com.utez.edu.controller.usuario.UsuarioAction" method="consultarUsuarioId">
+            <result name="success">/Administrador/Vistas/Usuarios/ModificarUsuario.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+                     
+        <action name="modificarUsuario" class="com.utez.edu.controller.usuario.UsuarioAction" method="modificarUsuario">
+            <result name="success" type="redirectAction">consultarUsuarios</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="nuevoUsuario" class="com.utez.edu.controller.usuario.UsuarioAction" method="nuevoUsuario">
+            <result name="success">/Administrador/Vistas/Usuarios/RegistrarUsuario.jsp</result>
+        </action>
+        
+        
+        <action name="nuevoUsuarioAdmin" class="com.utez.edu.controller.usuarioAdministrador.UsuarioAdminAction" method="nuevoUsuarioAdmin">
+            <result name="success">/Administrador/Vistas/Usuarios/RegistrarUsuarioAdmin.jsp</result>
+        </action>
+        
+        <action name="registrarUsuarioPersonaAdmin" class="com.utez.edu.controller.usuarioAdministrador.UsuarioAdminAction" method="registrarUsuarioPersonaAdmin">
+            <result name="success" type="redirectAction">consultarUsuarios</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        
+        
+        
+        
+        <!--Actions de Fiscalias -->
+        <action name="registrarFiscalia" class="com.utez.edu.controller.fiscalia.FiscaliaAction" method="registrarFiscalia">
+            <result name="success" type="redirectAction">consultarFiscalias</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="consultarFiscalias" class="com.utez.edu.controller.fiscalia.FiscaliaAction" method="consultarFiscalias">
+            <result name="success">/Administrador/Vistas/Fiscalias/Fiscalias.jsp</result>
+        </action>
+        
+        <action name="eliminarFiscalia" class="com.utez.edu.controller.fiscalia.FiscaliaAction" method="eliminarFiscalia">
+            <result name="success" type="redirectAction">consultarFiscalias</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action> 
+        
+        <action name="consultarFiscaliaId" class="com.utez.edu.controller.fiscalia.FiscaliaAction" method="consultarFiscaliaId">
+            <result name="success">/Administrador/Vistas/Fiscalias/ModificarFiscalias.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+                     
+        <action name="modificarFiscalia" class="com.utez.edu.controller.fiscalia.FiscaliaAction" method="modificarFiscalia">
+            <result name="success" type="redirectAction">consultarFiscalias</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="nuevaFiscalia" class="com.utez.edu.controller.fiscalia.FiscaliaAction" method="nuevaFiscalia">
+            <result name="success">/Administrador/Vistas/Fiscalias/RegistrarFiscalias.jsp</result>
+        </action>
+        
+        
+        
+        
+        <!--Actions de Sindicos -->
+
+        <action name="consultarSindico" class="com.utez.edu.controller.sindicoMunicipal.SindicoAction" method="consultarSindico">
+            <result name="success">/Administrador/Vistas/SindicoMunicipal/SindicoMunicipal.jsp</result>
+        </action>
+        
+        
+        <action name="consultarSindicoId" class="com.utez.edu.controller.sindicoMunicipal.SindicoAction" method="consultarSindicoId">
+            <result name="success">/Administrador/Vistas/SindicoMunicipal/ModificarSindicoMunicipal.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="modificarSindico" class="com.utez.edu.controller.sindicoMunicipal.SindicoAction" method="modificarSindico">
+            <result name="success" type="redirectAction">consultarSindico</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        
+        <!--Actions de Magistrados -->
+
+        <action name="consultarMaigstrado" class="com.utez.edu.controller.magistrado.MagistradoAction" method="consultarMaigstrado">
+            <result name="success">/Administrador/Vistas/Magistrado/Magistrado.jsp</result>
+        </action>
+        
+        
+        <action name="consultarMagistradoId" class="com.utez.edu.controller.magistrado.MagistradoAction" method="consultarMagistradoId">
+            <result name="success">/Administrador/Vistas/Magistrado/ModificarMagistrado.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="modificarMagistrado" class="com.utez.edu.controller.magistrado.MagistradoAction" method="modificarMagistrado">
+            <result name="success" type="redirectAction">consultarMaigstrado</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        
+        
+        <!--Actions de la Secretaria de Estudio y Cuenta -->
+
+        <action name="consultarSecretaria" class="com.utez.edu.controller.secretariaEstudio.EstudioyCuentaAction" method="consultarSecretaria">
+            <result name="success">/Administrador/Vistas/EstudioyCuenta/EstudioyCuenta.jsp</result>
+        </action>
+        
+        
+        <action name="consultarSecretariaId" class="com.utez.edu.controller.secretariaEstudio.EstudioyCuentaAction" method="consultarSecretariaId">
+            <result name="success">/Administrador/Vistas/EstudioyCuenta/ModificarEstudioyCuenta.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="modificarSecretaria" class="com.utez.edu.controller.secretariaEstudio.EstudioyCuentaAction" method="modificarSecretaria">
+            <result name="success" type="redirectAction">consultarSecretaria</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        
+        <!--Actions del Pleno -->
+
+        <action name="consultarPleno" class="com.utez.edu.controller.pleno.PlenoAction" method="consultarPleno">
+            <result name="success">/Administrador/Vistas/Pleno/Pleno.jsp</result>
+        </action>
+        
+        
+        <action name="consultarPlenoId" class="com.utez.edu.controller.pleno.PlenoAction" method="consultarPlenoId">
+            <result name="success">/Administrador/Vistas/Pleno/ModificarPleno.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="modificarPleno" class="com.utez.edu.controller.pleno.PlenoAction" method="modificarPleno">
+            <result name="success" type="redirectAction">consultarPleno</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        
+        <!--Actions de la Secretaria de Acuerdos -->
+
+        <action name="consultarAcuerdo" class="com.utez.edu.controller.acuerdos.AcuerdosAction" method="consultarAcuerdo">
+            <result name="success">/Administrador/Vistas/SriaAcuerdos/SriaAcuerdos.jsp</result>
+        </action>
+        
+        
+        <action name="consultarAcuerdoId" class="com.utez.edu.controller.acuerdos.AcuerdosAction" method="consultarAcuerdoId">
+            <result name="success">/Administrador/Vistas/SriaAcuerdos/ModificarSriaAcuerdos.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="modificarAcuerdo" class="com.utez.edu.controller.acuerdos.AcuerdosAction" method="modificarAcuerdo">
+            <result name="success" type="redirectAction">consultarAcuerdo</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        
+        
+        <!--Actions de la Oficialia de Partes -->
+
+        <action name="consultarOficialia" class="com.utez.edu.controller.oficialia.OficialiaAction" method="consultarOficialia">
+            <result name="success">/Administrador/Vistas/OficialiaDePartes/OficialiaPartes.jsp</result>
+        </action>
+               
+        <action name="consultarOficialiaId" class="com.utez.edu.controller.oficialia.OficialiaAction" method="consultarOficialiaId">
+            <result name="success">/Administrador/Vistas/OficialiaDePartes/ModificarOficialiaPartes.jsp</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        <action name="modificarOficialia" class="com.utez.edu.controller.oficialia.OficialiaAction" method="modificarOficialia">
+            <result name="success" type="redirectAction">consultarOficialia</result>
+            <result name="error">/correoMalo.jsp</result>
+        </action>
+        
+        
+    </package>
+</struts>

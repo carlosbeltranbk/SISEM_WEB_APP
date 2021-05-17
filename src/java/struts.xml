@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<!-- Author: BELTRAN PC -->
+ 
+<struts>
+    <package name="packInterceptor" extends="struts-default">
+        <interceptors>
+            <interceptor name="InterceptorSession" class="com.utez.edu.sisem.interceptor.InterceptorSession"/>
+            <interceptor-stack name="pilaInterceptores">
+                <interceptor-ref name="InterceptorSession"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="pilaInterceptores"/> 
+        <global-results>
+            <result name="NoLogeado">
+                <param name="location">/Login.jsp</param>
+                <param name="status">401</param>
+            </result>
+        </global-results>      
+    </package>  
+    <include file="sesion.xml"/>
+</struts>
